@@ -8,5 +8,4 @@ t/main.t
 distclean
 makeitfromscratch
 Distro
-t/signature.t
 lgpl-2.1.txt.gz

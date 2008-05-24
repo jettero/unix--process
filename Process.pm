@@ -7,14 +7,14 @@ use strict;
 use warnings;
 use AutoLoader;
 use Carp;
+use IPC::System::Simple qw(capture);
 
 use version;
 our $VERSION    = version->new("1.2.0")->numify;
-our $PS_PROGRAM = '/bin/ps';
+our $PS_PROGRAM = $ENV{PS_PATH} || '/bin/ps';
+our $AUTOLOAD;
 
-use vars qw($AUTOLOAD);
-
-return 1;
+1;
 
 sub AUTOLOAD {
     my $this = shift;
@@ -23,15 +23,11 @@ sub AUTOLOAD {
 
     $sub = $1 if $sub =~ m/::(\w+)$/;
 
-    my $v = `/bin/ps -o $sub -p $pid 2>&1`;
+    my $result = eval { capture($PS_PROGRAM, '-o', $sub, '-p', $pid) };
+    croak $@ if $@;
 
-    croak $1 if $v =~ m/error:(.+?)[\r\n]/ms;
-
-    if($v =~ m/[\r\n](.+?)[\r\n]/ms) {
-        return $1;
-    }
-
-    return "";
+    return $1 if $result =~ m/[\r\n](.+?)[\r\n]/ms;
+    return;
 }
 
 __END__
@@ -50,13 +46,18 @@ __END__
 
 =head1 DESCRIPTION
 
-    All fields from the ps command can be fetched by calling a
-    function of their name (see SYNOPSIS).  If the pid is not
-    given as an argument to the function, $$ (cur pid) is assumed.
+All fields from the ps command can be fetched by calling a function of their
+name (see SYNOPSIS).  If the pid is not given as an argument to the function,
+$$ (cur pid) is assumed.
 
-    BTW, this module is really just a giant AUTOLOAD to interact
-    with the /bin/ps command.  I suppose I could be talked into
-    doing something real with it some day.
+BTW, this module is really just a giant AUTOLOAD to interact with the /bin/ps
+command.  I suppose I could be talked into doing something real with it some
+day.
+
+You can manually set the C<$Unix::Process::PS_PROGRAM = "/opt/bin/ps"> by hand,
+or you can set C<$ENV{PS_PATH} = "/usr/local/bin/ps">, but you must somehow 
+instruct Unix::Process on the location of ps.  Otherwise, it will guess
+C<"/bin/ps">.
 
 =head1 AUTHOR
 

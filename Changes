@@ -1,6 +1,3 @@
-Revision history for Perl extension MySQL::Easy.
-
-0.01  Thu Jan 17 11:02:42 2002
-	- original version; created by h2xs 1.21 with options
-		-X MySQL::easy
-
+1.2.0: Sat May 24 09:53:04 EDT 2008
+   - using version.pm as suggested by Andreas Koenig
+   - making the module slightly less platform dependent.
