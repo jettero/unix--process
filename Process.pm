@@ -10,7 +10,7 @@ use Carp;
 use IPC::System::Simple qw(capture);
 
 use version;
-our $VERSION    = version->new("1.2.0")->numify;
+our $VERSION    = qv(1.2.1);
 our $PS_PROGRAM = $ENV{PS_PATH} || '/bin/ps';
 our $AUTOLOAD;
 

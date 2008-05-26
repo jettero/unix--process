@@ -16,5 +16,6 @@ WriteMakefile(
     'VERSION_FROM'	=> 'Process.pm',
     'PREREQ_PM'     => { 
         'IPC::System::Simple' => 0,
+        version               => 0,
     },
 );
