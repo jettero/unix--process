@@ -5,29 +5,35 @@ package Unix::Process;
 
 use strict;
 use warnings;
-use AutoLoader;
 use Carp;
 use IPC::System::Simple qw(capture);
 
-use version;
-our $VERSION    = qv('1.2.2');
+our $VERSION    = '1.300_000';
 our $PS_PROGRAM = $ENV{PS_PATH} || '/bin/ps';
 our $AUTOLOAD;
 
 1;
 
 sub AUTOLOAD {
-    my $this = shift;
-    my $pid  = shift; $pid = $$ unless $pid and int($pid);
-    my $sub  = $AUTOLOAD;
+    die "unprocessable garbage: $AUTOLOAD" unless $AUTOLOAD =~ m/::(\w+)$/;
+    my $sub = $1;
 
-    $sub = $1 if $sub =~ m/::(\w+)$/;
+    my $f = sub {
+        my $this = shift;
+        my $pid  = shift; $pid = $$ unless $pid and int($pid);
+        my $result = eval { capture($PS_PROGRAM, '-o', $sub, '-p', $pid) };
 
-    my $result = eval { capture($PS_PROGRAM, '-o', $sub, '-p', $pid) };
-    croak $@ if $@;
+        croak $@ if $@;
 
-    return $1 if $result =~ m/[\r\n](.+?)[\r\n]/ms;
-    return;
+        return $1 if $result =~ m/[\r\n]\s*(.+?)\s*[\r\n]/ms;
+        return;
+    };
+
+    {
+        no strict 'refs';
+        *$AUTOLOAD = $f;
+    }
+    &$f;
 }
 
 __END__

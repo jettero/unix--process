@@ -1,6 +1,8 @@
-1.2.2: Tue May 27 12:09:33 EDT 2008
-   - (wow, use version has to be on the same line as our $VERSION
-      for older EUMM)
+1.300_000: Tue May 27 12:09:33 EDT 2008
+   - The autoloader was kinda crappy
+   - There were whitespace bugs
+   - I hate M::B and went back to EU::MM
+     (so I also ditched version.pm)
 
 1.2.1: Mon May 26 15:44:35 EDT 2008
    - I might as well do a new version of everything using
