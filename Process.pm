@@ -8,7 +8,7 @@ use warnings;
 use Carp;
 use IPC::System::Simple qw(capture);
 
-our $VERSION    = '1.300_000';
+our $VERSION    = '1.31';
 our $PS_PROGRAM = $ENV{PS_PATH} || '/bin/ps';
 our $AUTOLOAD;
 

@@ -6,7 +6,7 @@ my $ps = $ENV{PS_PATH} || "/bin/ps";
 
 my $worked = 0;
 if( -x $ps ) {
-    if( open my $in, "-|", $ps, "-o", "pid", '-p', $$ ) {
+    if( open my $in, "$ps -o pid -p $$|" ) {
         while(<$in>) {
             $worked = 1 if m/^\s*$$\s*$/;
         }
