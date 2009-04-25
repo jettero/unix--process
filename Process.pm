@@ -31,9 +31,9 @@ sub AUTOLOAD {
 
     {
         no strict 'refs';
-        *$AUTOLOAD = $f;
+        *{$AUTOLOAD} = $f;
     }
-    &$f;
+    goto &$f;
 }
 
 __END__
@@ -41,7 +41,7 @@ __END__
 
 =head1 NAME
 
-    Unix::Process Perl extension to get pid info from (/bin/ps).
+Unix::Process Perl extension to get pid info from (/bin/ps).
 
 =head1 SYNOPSIS
 
@@ -75,7 +75,7 @@ all.  Half the fun of releasing this stuff is knowing that people use it.
 
 =head1 COPYRIGHT
 
-Copyright (c) 2007 Paul Miller -- LGPL [attached]
+Copyright (c) 2007-2009 Paul Miller -- LGPL
 
 =head1 SEE ALSO
 
