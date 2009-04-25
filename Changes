@@ -1,3 +1,7 @@
+1.3101: Sat Apr 25 16:15:09 EDT 2009
+   - a few tweaks and bug fixes (mostly doc bugs)
+   - added new meta.yml stuff
+
 1.31: 
    - I used a perl 5.8 syntax in my Makefile.PL
    - although, I think this should work in perl 5.6

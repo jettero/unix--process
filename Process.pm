@@ -1,14 +1,11 @@
 package Unix::Process;
 
-# $Id: Process.pm,v 1.9 2003/08/04 13:32:17 jettero Exp $
-# vi:fdm=marker fdl=0:
-
 use strict;
 use warnings;
 use Carp;
 use IPC::System::Simple qw(capturex);
 
-our $VERSION    = '1.31';
+our $VERSION    = '1.3101';
 our $PS_PROGRAM = $ENV{PS_PATH} || '/bin/ps';
 our $AUTOLOAD;
 
@@ -67,7 +64,7 @@ C<"/bin/ps">.
 
 =head1 AUTHOR
 
-Paul Miller <paul@cpan.org>
+Paul Miller C<< <paul@cpan.org> >>
 
 I am using this software in my own projects...  If you find bugs, please
 please please let me know. :) Actually, let me know if you find it handy at
