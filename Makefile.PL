@@ -27,4 +27,15 @@ WriteMakefile(
     'PREREQ_PM'     => { 
         'IPC::System::Simple' => 0,
     },
+    ($ExtUtils::MakeMaker::VERSION ge '6.48'?
+        (MIN_PERL_VERSION => 5.008,
+            META_MERGE => {
+                keywords => [qw(ps process unix)],
+                resources=> {
+                    repository => 'http://github.com/jettero/unix--process',
+                },  
+            },  
+
+        LICENSE => 'lgpl',
+    ) : ()),
 );
