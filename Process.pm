@@ -6,7 +6,7 @@ package Unix::Process;
 use strict;
 use warnings;
 use Carp;
-use IPC::System::Simple qw(capture);
+use IPC::System::Simple qw(capturex);
 
 our $VERSION    = '1.31';
 our $PS_PROGRAM = $ENV{PS_PATH} || '/bin/ps';
@@ -21,7 +21,7 @@ sub AUTOLOAD {
     my $f = sub {
         my $this = shift;
         my $pid  = shift; $pid = $$ unless $pid and int($pid);
-        my $result = eval { capture($PS_PROGRAM, '-o', $sub, '-p', $pid) };
+        my $result = eval { capturex($PS_PROGRAM, '-o', $sub, '-p', $pid) };
 
         croak $@ if $@;
 
@@ -41,7 +41,7 @@ __END__
 
 =head1 NAME
 
-Unix::Process Perl extension to get pid info from (/bin/ps).
+Unix::Process - Perl extension to get pid info from (/bin/ps).
 
 =head1 SYNOPSIS
 
@@ -56,7 +56,7 @@ All fields from the ps command can be fetched by calling a function of their
 name (see SYNOPSIS).  If the pid is not given as an argument to the function,
 $$ (cur pid) is assumed.
 
-BTW, this module is really just a giant AUTOLOAD to interact with the /bin/ps
+This module is really just a giant AUTOLOAD to interact with the /bin/ps
 command.  I suppose I could be talked into doing something real with it some
 day.
 
