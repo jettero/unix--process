@@ -24,7 +24,6 @@ unless( $worked ) {
 WriteMakefile(
     NAME         => 'Unix::Process',
     AUTHOR       => 'Paul Miller <jettero@cpan.org>',
-    ABSTRACT     => 'Perl extension to get pid info from /bin/ps binary',
     VERSION_FROM => 'Process.pm',
     PREREQ_PM    => { 
         'IPC::System::Simple' => 0,
